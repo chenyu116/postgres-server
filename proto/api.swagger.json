@@ -1,0 +1,50 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api.proto",
+    "version": "version not set"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/status": {
+      "get": {
+        "operationId": "Status",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGeneratorMobileStatusReply"
+            }
+          }
+        },
+        "tags": [
+          "Api"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protoGeneratorMobileStatusReply": {
+      "type": "object",
+      "properties": {
+        "websocketConnections": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "protoGeneratorMobileWebsocketClientLoginReply": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
