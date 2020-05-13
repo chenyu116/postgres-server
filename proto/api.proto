@@ -17,17 +17,39 @@ package postgresServer;
 
 service Api {
   rpc GeneratorProjects (GeneratorProjectsRequest) returns (GeneratorProjectsReply);
+  rpc GeneratorProjectFeatured (GeneratorProjectFeaturedRequest) returns (GeneratorProjectFeaturedReply);
 
 }
 
+message GeneratorProjectFeaturedRequest {
+}
 message GeneratorProjectsRequest {
+}
+
+message ProjectFeature{
+  int32 project_features_id = 1;
+  string project_features_type = 2;
+  int32 project_features_inherit_from = 3;
+  string project_features_config = 4;
+
+}
+message ProjectFeaturedDetails {
+  int32 project_id = 1;
+  string project_name = 2;
+  string project_content = 3;
+  repeated ProjectFeature project_features = 4;
 }
 
 message ProjectDetails {
   int32 project_id = 1;
   string project_name = 2;
+  string project_content = 3;
 }
 
 message GeneratorProjectsReply {
   repeated ProjectDetails projects = 1;
+}
+
+message GeneratorProjectFeaturedReply {
+  repeated ProjectFeaturedDetails projects = 1;
 }

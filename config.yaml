@@ -1,0 +1,13 @@
+postgresqlServer:
+  writeHost: "192.168.1.232"
+  writePort: 5432
+  readHost: "192.168.1.232"
+  readPort: 5432
+  username: postgres
+  password: 123
+  database: smartsign3
+serve:
+  grpcHostPort: ":5050"
+  restfulHostPort: ":5051"
+common:
+  connectTimeout: 10

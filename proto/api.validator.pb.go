@@ -15,13 +15,39 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
+func (this *GeneratorProjectFeaturedRequest) Validate() error {
+	return nil
+}
 func (this *GeneratorProjectsRequest) Validate() error {
+	return nil
+}
+func (this *ProjectFeature) Validate() error {
+	return nil
+}
+func (this *ProjectFeaturedDetails) Validate() error {
+	for _, item := range this.ProjectFeatures {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("ProjectFeatures", err)
+			}
+		}
+	}
 	return nil
 }
 func (this *ProjectDetails) Validate() error {
 	return nil
 }
 func (this *GeneratorProjectsReply) Validate() error {
+	for _, item := range this.Projects {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Projects", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *GeneratorProjectFeaturedReply) Validate() error {
 	for _, item := range this.Projects {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
