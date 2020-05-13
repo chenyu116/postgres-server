@@ -13,7 +13,7 @@
 // limitations under the License.
 
 syntax = "proto3";
-package protoGeneratorMobile;
+package postgresServer;
 
 service Api {
   rpc GeneratorProjects (GeneratorProjectsRequest) returns (GeneratorProjectsReply);
@@ -23,7 +23,11 @@ service Api {
 message GeneratorProjectsRequest {
 }
 
-message GeneratorProjectsReply {
-  string project_id = 1;
+message ProjectDetails {
+  int32 project_id = 1;
   string project_name = 2;
+}
+
+message GeneratorProjectsReply {
+  repeated ProjectDetails projects = 1;
 }
