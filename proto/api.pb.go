@@ -6,8 +6,6 @@ package protoGeneratorMobile
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
-import _ "github.com/mwitkow/go-proto-validators"
-import _ "google.golang.org/genproto/googleapis/api/annotations"
 
 import (
 	context "golang.org/x/net/context"
@@ -25,155 +23,85 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-type StatusRequest struct {
+type GeneratorProjectsRequest struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *StatusRequest) Reset()         { *m = StatusRequest{} }
-func (m *StatusRequest) String() string { return proto.CompactTextString(m) }
-func (*StatusRequest) ProtoMessage()    {}
-func (*StatusRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_api_63e0e80e87408123, []int{0}
+func (m *GeneratorProjectsRequest) Reset()         { *m = GeneratorProjectsRequest{} }
+func (m *GeneratorProjectsRequest) String() string { return proto.CompactTextString(m) }
+func (*GeneratorProjectsRequest) ProtoMessage()    {}
+func (*GeneratorProjectsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_api_f92dcbd5e32205b9, []int{0}
 }
-func (m *StatusRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_StatusRequest.Unmarshal(m, b)
+func (m *GeneratorProjectsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GeneratorProjectsRequest.Unmarshal(m, b)
 }
-func (m *StatusRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_StatusRequest.Marshal(b, m, deterministic)
+func (m *GeneratorProjectsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GeneratorProjectsRequest.Marshal(b, m, deterministic)
 }
-func (dst *StatusRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_StatusRequest.Merge(dst, src)
+func (dst *GeneratorProjectsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GeneratorProjectsRequest.Merge(dst, src)
 }
-func (m *StatusRequest) XXX_Size() int {
-	return xxx_messageInfo_StatusRequest.Size(m)
+func (m *GeneratorProjectsRequest) XXX_Size() int {
+	return xxx_messageInfo_GeneratorProjectsRequest.Size(m)
 }
-func (m *StatusRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_StatusRequest.DiscardUnknown(m)
+func (m *GeneratorProjectsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GeneratorProjectsRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_StatusRequest proto.InternalMessageInfo
+var xxx_messageInfo_GeneratorProjectsRequest proto.InternalMessageInfo
 
-type StatusReply struct {
-	WebsocketConnections uint32   `protobuf:"varint,1,opt,name=websocketConnections,proto3" json:"websocketConnections,omitempty"`
+type GeneratorProjectsReply struct {
+	ProjectId            string   `protobuf:"bytes,1,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
+	ProjectName          string   `protobuf:"bytes,2,opt,name=project_name,json=projectName,proto3" json:"project_name,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *StatusReply) Reset()         { *m = StatusReply{} }
-func (m *StatusReply) String() string { return proto.CompactTextString(m) }
-func (*StatusReply) ProtoMessage()    {}
-func (*StatusReply) Descriptor() ([]byte, []int) {
-	return fileDescriptor_api_63e0e80e87408123, []int{1}
+func (m *GeneratorProjectsReply) Reset()         { *m = GeneratorProjectsReply{} }
+func (m *GeneratorProjectsReply) String() string { return proto.CompactTextString(m) }
+func (*GeneratorProjectsReply) ProtoMessage()    {}
+func (*GeneratorProjectsReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_api_f92dcbd5e32205b9, []int{1}
 }
-func (m *StatusReply) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_StatusReply.Unmarshal(m, b)
+func (m *GeneratorProjectsReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GeneratorProjectsReply.Unmarshal(m, b)
 }
-func (m *StatusReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_StatusReply.Marshal(b, m, deterministic)
+func (m *GeneratorProjectsReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GeneratorProjectsReply.Marshal(b, m, deterministic)
 }
-func (dst *StatusReply) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_StatusReply.Merge(dst, src)
+func (dst *GeneratorProjectsReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GeneratorProjectsReply.Merge(dst, src)
 }
-func (m *StatusReply) XXX_Size() int {
-	return xxx_messageInfo_StatusReply.Size(m)
+func (m *GeneratorProjectsReply) XXX_Size() int {
+	return xxx_messageInfo_GeneratorProjectsReply.Size(m)
 }
-func (m *StatusReply) XXX_DiscardUnknown() {
-	xxx_messageInfo_StatusReply.DiscardUnknown(m)
+func (m *GeneratorProjectsReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_GeneratorProjectsReply.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_StatusReply proto.InternalMessageInfo
+var xxx_messageInfo_GeneratorProjectsReply proto.InternalMessageInfo
 
-func (m *StatusReply) GetWebsocketConnections() uint32 {
+func (m *GeneratorProjectsReply) GetProjectId() string {
 	if m != nil {
-		return m.WebsocketConnections
-	}
-	return 0
-}
-
-type WebsocketClientLoginRequest struct {
-	Token                string   `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *WebsocketClientLoginRequest) Reset()         { *m = WebsocketClientLoginRequest{} }
-func (m *WebsocketClientLoginRequest) String() string { return proto.CompactTextString(m) }
-func (*WebsocketClientLoginRequest) ProtoMessage()    {}
-func (*WebsocketClientLoginRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_api_63e0e80e87408123, []int{2}
-}
-func (m *WebsocketClientLoginRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_WebsocketClientLoginRequest.Unmarshal(m, b)
-}
-func (m *WebsocketClientLoginRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_WebsocketClientLoginRequest.Marshal(b, m, deterministic)
-}
-func (dst *WebsocketClientLoginRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_WebsocketClientLoginRequest.Merge(dst, src)
-}
-func (m *WebsocketClientLoginRequest) XXX_Size() int {
-	return xxx_messageInfo_WebsocketClientLoginRequest.Size(m)
-}
-func (m *WebsocketClientLoginRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_WebsocketClientLoginRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_WebsocketClientLoginRequest proto.InternalMessageInfo
-
-func (m *WebsocketClientLoginRequest) GetToken() string {
-	if m != nil {
-		return m.Token
+		return m.ProjectId
 	}
 	return ""
 }
 
-type WebsocketClientLoginReply struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *WebsocketClientLoginReply) Reset()         { *m = WebsocketClientLoginReply{} }
-func (m *WebsocketClientLoginReply) String() string { return proto.CompactTextString(m) }
-func (*WebsocketClientLoginReply) ProtoMessage()    {}
-func (*WebsocketClientLoginReply) Descriptor() ([]byte, []int) {
-	return fileDescriptor_api_63e0e80e87408123, []int{3}
-}
-func (m *WebsocketClientLoginReply) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_WebsocketClientLoginReply.Unmarshal(m, b)
-}
-func (m *WebsocketClientLoginReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_WebsocketClientLoginReply.Marshal(b, m, deterministic)
-}
-func (dst *WebsocketClientLoginReply) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_WebsocketClientLoginReply.Merge(dst, src)
-}
-func (m *WebsocketClientLoginReply) XXX_Size() int {
-	return xxx_messageInfo_WebsocketClientLoginReply.Size(m)
-}
-func (m *WebsocketClientLoginReply) XXX_DiscardUnknown() {
-	xxx_messageInfo_WebsocketClientLoginReply.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_WebsocketClientLoginReply proto.InternalMessageInfo
-
-func (m *WebsocketClientLoginReply) GetId() string {
+func (m *GeneratorProjectsReply) GetProjectName() string {
 	if m != nil {
-		return m.Id
+		return m.ProjectName
 	}
 	return ""
 }
 
 func init() {
-	proto.RegisterType((*StatusRequest)(nil), "protoGeneratorMobile.StatusRequest")
-	proto.RegisterType((*StatusReply)(nil), "protoGeneratorMobile.StatusReply")
-	proto.RegisterType((*WebsocketClientLoginRequest)(nil), "protoGeneratorMobile.WebsocketClientLoginRequest")
-	proto.RegisterType((*WebsocketClientLoginReply)(nil), "protoGeneratorMobile.WebsocketClientLoginReply")
+	proto.RegisterType((*GeneratorProjectsRequest)(nil), "protoGeneratorMobile.GeneratorProjectsRequest")
+	proto.RegisterType((*GeneratorProjectsReply)(nil), "protoGeneratorMobile.GeneratorProjectsReply")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -188,8 +116,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type ApiClient interface {
-	WebsocketClientLogin(ctx context.Context, in *WebsocketClientLoginRequest, opts ...grpc.CallOption) (*WebsocketClientLoginReply, error)
-	Status(ctx context.Context, in *StatusRequest, opts ...grpc.CallOption) (*StatusReply, error)
+	GeneratorProjects(ctx context.Context, in *GeneratorProjectsRequest, opts ...grpc.CallOption) (*GeneratorProjectsReply, error)
 }
 
 type apiClient struct {
@@ -200,18 +127,9 @@ func NewApiClient(cc *grpc.ClientConn) ApiClient {
 	return &apiClient{cc}
 }
 
-func (c *apiClient) WebsocketClientLogin(ctx context.Context, in *WebsocketClientLoginRequest, opts ...grpc.CallOption) (*WebsocketClientLoginReply, error) {
-	out := new(WebsocketClientLoginReply)
-	err := c.cc.Invoke(ctx, "/protoGeneratorMobile.Api/WebsocketClientLogin", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *apiClient) Status(ctx context.Context, in *StatusRequest, opts ...grpc.CallOption) (*StatusReply, error) {
-	out := new(StatusReply)
-	err := c.cc.Invoke(ctx, "/protoGeneratorMobile.Api/Status", in, out, opts...)
+func (c *apiClient) GeneratorProjects(ctx context.Context, in *GeneratorProjectsRequest, opts ...grpc.CallOption) (*GeneratorProjectsReply, error) {
+	out := new(GeneratorProjectsReply)
+	err := c.cc.Invoke(ctx, "/protoGeneratorMobile.Api/GeneratorProjects", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -220,46 +138,27 @@ func (c *apiClient) Status(ctx context.Context, in *StatusRequest, opts ...grpc.
 
 // ApiServer is the server API for Api service.
 type ApiServer interface {
-	WebsocketClientLogin(context.Context, *WebsocketClientLoginRequest) (*WebsocketClientLoginReply, error)
-	Status(context.Context, *StatusRequest) (*StatusReply, error)
+	GeneratorProjects(context.Context, *GeneratorProjectsRequest) (*GeneratorProjectsReply, error)
 }
 
 func RegisterApiServer(s *grpc.Server, srv ApiServer) {
 	s.RegisterService(&_Api_serviceDesc, srv)
 }
 
-func _Api_WebsocketClientLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(WebsocketClientLoginRequest)
+func _Api_GeneratorProjects_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GeneratorProjectsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ApiServer).WebsocketClientLogin(ctx, in)
+		return srv.(ApiServer).GeneratorProjects(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protoGeneratorMobile.Api/WebsocketClientLogin",
+		FullMethod: "/protoGeneratorMobile.Api/GeneratorProjects",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ApiServer).WebsocketClientLogin(ctx, req.(*WebsocketClientLoginRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Api_Status_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StatusRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ApiServer).Status(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/protoGeneratorMobile.Api/Status",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ApiServer).Status(ctx, req.(*StatusRequest))
+		return srv.(ApiServer).GeneratorProjects(ctx, req.(*GeneratorProjectsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -269,40 +168,27 @@ var _Api_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*ApiServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "WebsocketClientLogin",
-			Handler:    _Api_WebsocketClientLogin_Handler,
-		},
-		{
-			MethodName: "Status",
-			Handler:    _Api_Status_Handler,
+			MethodName: "GeneratorProjects",
+			Handler:    _Api_GeneratorProjects_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "api.proto",
 }
 
-func init() { proto.RegisterFile("api.proto", fileDescriptor_api_63e0e80e87408123) }
+func init() { proto.RegisterFile("api.proto", fileDescriptor_api_f92dcbd5e32205b9) }
 
-var fileDescriptor_api_63e0e80e87408123 = []byte{
-	// 305 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x90, 0xc1, 0x4a, 0xfb, 0x40,
-	0x10, 0xc6, 0x49, 0xfe, 0xfc, 0x0b, 0x1d, 0xad, 0xc2, 0xd2, 0x83, 0xc6, 0x82, 0x1a, 0x2f, 0x82,
-	0x34, 0x4b, 0x2b, 0x78, 0xf1, 0x54, 0x3d, 0x78, 0xd1, 0x4b, 0x3c, 0xe8, 0x75, 0xd3, 0x2c, 0x71,
-	0x68, 0xba, 0xb3, 0x76, 0xa7, 0x2d, 0xf5, 0xe8, 0x2b, 0xf8, 0x68, 0x3e, 0x80, 0x20, 0x82, 0xaf,
-	0x21, 0xdd, 0x68, 0x41, 0x08, 0x05, 0x4f, 0xbb, 0x7c, 0xdf, 0xfc, 0x66, 0x3e, 0x3e, 0x68, 0x2a,
-	0x8b, 0x89, 0x9d, 0x10, 0x93, 0x68, 0xfb, 0xe7, 0x4a, 0x1b, 0x3d, 0x51, 0x4c, 0x93, 0x1b, 0xca,
-	0xb0, 0xd4, 0x51, 0xa7, 0x20, 0x2a, 0x4a, 0x2d, 0x95, 0x45, 0xa9, 0x8c, 0x21, 0x56, 0x8c, 0x64,
-	0x5c, 0xc5, 0x44, 0x67, 0x05, 0xf2, 0xc3, 0x34, 0x4b, 0x86, 0x34, 0x96, 0xe3, 0x39, 0xf2, 0x88,
-	0xe6, 0xb2, 0xa0, 0xae, 0x37, 0xbb, 0x33, 0x55, 0x62, 0xbe, 0x5c, 0xe5, 0xe4, 0xea, 0x5b, 0x71,
-	0xf1, 0x36, 0xb4, 0x6e, 0x59, 0xf1, 0xd4, 0xa5, 0xfa, 0x71, 0xaa, 0x1d, 0xc7, 0x03, 0xd8, 0xf8,
-	0x11, 0x6c, 0xb9, 0x10, 0x7d, 0x68, 0xcf, 0x75, 0xe6, 0x68, 0x38, 0xd2, 0x7c, 0x49, 0xc6, 0xe8,
-	0xa1, 0xbf, 0xba, 0x13, 0x1c, 0x04, 0xc7, 0xad, 0xb4, 0xd6, 0x8b, 0xcf, 0x61, 0xef, 0x6e, 0xa5,
-	0x97, 0xa8, 0x0d, 0x5f, 0x53, 0x81, 0xe6, 0xfb, 0x82, 0xe8, 0xc0, 0x7f, 0xa6, 0x91, 0x36, 0x7e,
-	0x47, 0xf3, 0xa2, 0xf1, 0xfe, 0xb6, 0x1f, 0xde, 0x07, 0x69, 0x25, 0xc6, 0x27, 0xb0, 0x5b, 0x0f,
-	0x2f, 0xd3, 0x6c, 0x41, 0x88, 0x79, 0xc5, 0xa5, 0x21, 0xe6, 0xfd, 0xcf, 0x00, 0xfe, 0x0d, 0x2c,
-	0x8a, 0x27, 0x68, 0xd7, 0x41, 0xa2, 0x97, 0xd4, 0x55, 0x99, 0xac, 0x49, 0x17, 0xc9, 0xbf, 0x20,
-	0xcb, 0x4c, 0x39, 0x34, 0xaa, 0xc2, 0xc4, 0x51, 0x3d, 0xfa, 0xab, 0xdf, 0xe8, 0x70, 0xfd, 0x90,
-	0x2d, 0x17, 0xb1, 0x78, 0x7e, 0xfd, 0x78, 0x09, 0x37, 0x05, 0xc8, 0x59, 0x4f, 0x3a, 0x6f, 0x64,
-	0x0d, 0x4f, 0x9d, 0x7e, 0x05, 0x00, 0x00, 0xff, 0xff, 0x73, 0x53, 0x93, 0x31, 0x27, 0x02, 0x00,
+var fileDescriptor_api_f92dcbd5e32205b9 = []byte{
+	// 161 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4c, 0x2c, 0xc8, 0xd4,
+	0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0x01, 0x53, 0xee, 0xa9, 0x79, 0xa9, 0x45, 0x89, 0x25,
+	0xf9, 0x45, 0xbe, 0xf9, 0x49, 0x99, 0x39, 0xa9, 0x4a, 0x52, 0x5c, 0x12, 0x70, 0xa1, 0x80, 0xa2,
+	0xfc, 0xac, 0xd4, 0xe4, 0x92, 0xe2, 0xa0, 0xd4, 0xc2, 0xd2, 0xd4, 0xe2, 0x12, 0xa5, 0x28, 0x2e,
+	0x31, 0x2c, 0x72, 0x05, 0x39, 0x95, 0x42, 0xb2, 0x5c, 0x5c, 0x05, 0x10, 0x81, 0xf8, 0xcc, 0x14,
+	0x09, 0x46, 0x05, 0x46, 0x0d, 0xce, 0x20, 0x4e, 0xa8, 0x88, 0x67, 0x8a, 0x90, 0x22, 0x17, 0x0f,
+	0x4c, 0x3a, 0x2f, 0x31, 0x37, 0x55, 0x82, 0x09, 0xac, 0x80, 0x1b, 0x2a, 0xe6, 0x97, 0x98, 0x9b,
+	0x6a, 0x54, 0xc1, 0xc5, 0xec, 0x58, 0x90, 0x29, 0x54, 0xc8, 0x25, 0x88, 0x61, 0x85, 0x90, 0x9e,
+	0x1e, 0x36, 0xa7, 0xea, 0xe1, 0x72, 0xa7, 0x94, 0x0e, 0xd1, 0xea, 0x0b, 0x72, 0x2a, 0x93, 0xd8,
+	0xc0, 0x8a, 0x8d, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff, 0xc2, 0xd3, 0xf6, 0x59, 0x1b, 0x01, 0x00,
 	0x00,
 }
