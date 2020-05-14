@@ -18,6 +18,7 @@ package postgresServer;
 service Api {
   rpc GeneratorProjects (GeneratorProjectsRequest) returns (GeneratorProjectsReply);
   rpc GeneratorProjectFeatured (GeneratorProjectFeaturedRequest) returns (GeneratorProjectFeaturedReply);
+  rpc GeneratorProjectFeaturesByProjectId (GeneratorProjectFeaturesByProjectIdRequest) returns (GeneratorProjectFeaturesByProjectIdReply);
 
 }
 
@@ -31,8 +32,8 @@ message ProjectFeature{
   string project_features_type = 2;
   int32 project_features_inherit_from = 3;
   string project_features_config = 4;
-
 }
+
 message ProjectFeaturedDetails {
   int32 project_id = 1;
   string project_name = 2;
@@ -51,5 +52,25 @@ message GeneratorProjectsReply {
 }
 
 message GeneratorProjectFeaturedReply {
-  repeated ProjectFeaturedDetails projects = 1;
+  repeated ProjectDetails projects = 1;
+}
+
+message ProjectFeatureAll{
+  int32 project_features_id = 1;
+  string project_features_type = 2;
+  string project_features_config = 3;
+  int32 feature_id = 4;
+  string feature_name = 5;
+  string feature_labels = 6;
+  string feature_types = 7;
+  string feature_intro = 8;
+  int32 feature_version_id = 9;
+  string feature_version_name = 10;
+
+}
+message GeneratorProjectFeaturesByProjectIdRequest{
+  int32 project_id = 1;
+}
+message GeneratorProjectFeaturesByProjectIdReply{
+  repeated ProjectFeatureAll features = 1;
 }

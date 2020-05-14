@@ -41,28 +41,53 @@ GeneratorProjectFeaturedReply,
 	if err != nil {
 		return nil, err
 	}
-	ins := models.NewNProjectFeatures()
-	features, err := ins.GetProjectFeatures()
+	ins := models.NewNProject()
+	features, err := ins.GetProjectsFeatured()
 	if err != nil {
 		return nil, err
 	}
 	var reply pb.GeneratorProjectFeaturedReply
-	featuresMap := make(map[int32]*pb.ProjectFeaturedDetails)
 	for _, v := range features {
-		if _, ok := featuresMap[v.ProjectId]; !ok {
-			featuresMap[v.ProjectId] = &pb.ProjectFeaturedDetails{
-				ProjectId:            v.ProjectId,
-				ProjectName:          v.ProjectName,
-				ProjectContent:       v.NProject.ProjectContent,
-			}
-		}
-		featuresMap[v.ProjectId].ProjectFeatures = append(featuresMap[v.ProjectId].ProjectFeatures, &pb.ProjectFeature{
-			ProjectFeaturesId:   v.ProjectFeaturesId,
-			ProjectFeaturesType: "",
+		reply.Projects = append(reply.Projects, &pb.ProjectDetails{
+			ProjectId:      v.ProjectId,
+			ProjectName:    v.ProjectName,
+			ProjectContent: v.ProjectContent,
 		})
 	}
-	for _, v := range featuresMap {
-		reply.Projects = append(reply.Projects, v)
+	//featuresMap := make(map[int32]*pb.ProjectFeaturedDetails)
+	//for _, v := range featuresMap {
+	//	reply.Projects = append(reply.Projects, v)
+	//}
+	return &reply, nil
+}
+
+func (s *apiServer) GeneratorProjectFeaturesByProjectId(ctx context.Context, req *pb.GeneratorProjectFeaturesByProjectIdRequest) (*pb.
+GeneratorProjectFeaturesByProjectIdReply,
+	error) {
+	err := req.Validate()
+	if err != nil {
+		return nil, err
+	}
+	ins := models.NewNProjectFeatures()
+	features, err := ins.GetProjectFeaturesByProjectId(req.ProjectId)
+	if err != nil {
+		return nil, err
+	}
+	var reply pb.GeneratorProjectFeaturesByProjectIdReply
+	//featuresMap := make(map[int32]*pb.ProjectFeaturedDetails)
+	for _, v := range features {
+		reply.Features = append(reply.Features, &pb.ProjectFeatureAll{
+			ProjectFeaturesId:     v.ProjectFeaturesId,
+			ProjectFeaturesType:   v.ProjectFeaturesType,
+			ProjectFeaturesConfig: v.ProjectFeaturesConfig,
+			FeatureId:             v.FeatureId,
+			FeatureName:           v.FeatureName,
+			FeatureLabels:         v.FeatureLabels,
+			FeatureTypes:          v.FeatureTypes,
+			FeatureVersionId:      v.FeatureVersionId,
+			FeatureVersionName:    v.FeatureVersionName,
+			FeatureIntro:          v.FeatureIntro,
+		})
 	}
 	return &reply, nil
 }

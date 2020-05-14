@@ -57,3 +57,19 @@ func (this *GeneratorProjectFeaturedReply) Validate() error {
 	}
 	return nil
 }
+func (this *ProjectFeatureAll) Validate() error {
+	return nil
+}
+func (this *GeneratorProjectFeaturesByProjectIdRequest) Validate() error {
+	return nil
+}
+func (this *GeneratorProjectFeaturesByProjectIdReply) Validate() error {
+	for _, item := range this.Features {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Features", err)
+			}
+		}
+	}
+	return nil
+}
