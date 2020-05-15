@@ -16,15 +16,40 @@ syntax = "proto3";
 package postgresServer;
 
 service Api {
-  rpc GeneratorProjects (GeneratorProjectsRequest) returns (GeneratorProjectsReply);
-  rpc GeneratorProjectFeatured (GeneratorProjectFeaturedRequest) returns (GeneratorProjectFeaturedReply);
-  rpc GeneratorProjectFeaturesByProjectId (GeneratorProjectFeaturesByProjectIdRequest) returns (GeneratorProjectFeaturesByProjectIdReply);
+  rpc Projects (ProjectsRequest) returns (ProjectsReply);
+  rpc ProjectInitialized (ProjectInitializedRequest) returns (ProjectInitializedReply);
+  rpc Features (FeaturesRequest) returns (FeaturesReply);
+  rpc ProjectFeaturesByProjectId (ProjectFeaturesByProjectIdRequest) returns (ProjectFeaturesByProjectIdReply);
 
 }
-
-message GeneratorProjectFeaturedRequest {
+message FeaturesRequest {
 }
-message GeneratorProjectsRequest {
+
+message Feature {
+  int32 feature_id = 1;
+  string feature_name = 2;
+  string feature_labels = 3;
+  string feature_types = 4;
+  string feature_intro = 5;
+  repeated FeatureVersion feature_version = 6;
+}
+message FeatureVersion {
+  int32 feature_version_id = 1;
+  string feature_version_name = 2;
+}
+
+message FeaturesReply{
+  repeated Feature feature = 1;
+}
+
+message ProjectInitializedRequest {
+  string projects = 1;
+}
+message ProjectInitializedReply {
+  repeated ProjectDetails projects = 1;
+}
+
+message ProjectsRequest {
 }
 
 message ProjectFeature{
@@ -47,13 +72,10 @@ message ProjectDetails {
   string project_content = 3;
 }
 
-message GeneratorProjectsReply {
+message ProjectsReply {
   repeated ProjectDetails projects = 1;
 }
 
-message GeneratorProjectFeaturedReply {
-  repeated ProjectDetails projects = 1;
-}
 
 message ProjectFeatureAll{
   int32 project_features_id = 1;
@@ -68,9 +90,9 @@ message ProjectFeatureAll{
   string feature_version_name = 10;
 
 }
-message GeneratorProjectFeaturesByProjectIdRequest{
+message ProjectFeaturesByProjectIdRequest{
   int32 project_id = 1;
 }
-message GeneratorProjectFeaturesByProjectIdReply{
+message ProjectFeaturesByProjectIdReply{
   repeated ProjectFeatureAll features = 1;
 }

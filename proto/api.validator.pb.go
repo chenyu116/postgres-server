@@ -15,10 +15,46 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
-func (this *GeneratorProjectFeaturedRequest) Validate() error {
+func (this *FeaturesRequest) Validate() error {
 	return nil
 }
-func (this *GeneratorProjectsRequest) Validate() error {
+func (this *Feature) Validate() error {
+	for _, item := range this.FeatureVersion {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("FeatureVersion", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *FeatureVersion) Validate() error {
+	return nil
+}
+func (this *FeaturesReply) Validate() error {
+	for _, item := range this.Feature {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Feature", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *ProjectInitializedRequest) Validate() error {
+	return nil
+}
+func (this *ProjectInitializedReply) Validate() error {
+	for _, item := range this.Projects {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Projects", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *ProjectsRequest) Validate() error {
 	return nil
 }
 func (this *ProjectFeature) Validate() error {
@@ -37,17 +73,7 @@ func (this *ProjectFeaturedDetails) Validate() error {
 func (this *ProjectDetails) Validate() error {
 	return nil
 }
-func (this *GeneratorProjectsReply) Validate() error {
-	for _, item := range this.Projects {
-		if item != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("Projects", err)
-			}
-		}
-	}
-	return nil
-}
-func (this *GeneratorProjectFeaturedReply) Validate() error {
+func (this *ProjectsReply) Validate() error {
 	for _, item := range this.Projects {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
@@ -60,10 +86,10 @@ func (this *GeneratorProjectFeaturedReply) Validate() error {
 func (this *ProjectFeatureAll) Validate() error {
 	return nil
 }
-func (this *GeneratorProjectFeaturesByProjectIdRequest) Validate() error {
+func (this *ProjectFeaturesByProjectIdRequest) Validate() error {
 	return nil
 }
-func (this *GeneratorProjectFeaturesByProjectIdReply) Validate() error {
+func (this *ProjectFeaturesByProjectIdReply) Validate() error {
 	for _, item := range this.Features {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {

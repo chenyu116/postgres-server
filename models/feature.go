@@ -1,6 +1,8 @@
 package models
 
 import (
+	"github.com/chenyu116/postgres-server/utils"
+	"github.com/go-xorm/xorm"
 	_ "github.com/lib/pq"
 )
 
@@ -14,4 +16,18 @@ type NFeature struct {
 
 func NewNFeature() *NFeature {
 	return new(NFeature)
+}
+
+func (n *NFeature) GetFeatures() ([]NFeature, error) {
+	dbRead := utils.PgPoolRead.Get().(*xorm.Engine)
+	defer func() {
+		utils.PgPoolRead.Put(dbRead)
+		dbRead = nil
+	}()
+	var cond []NFeature
+	err := dbRead.Find(&cond)
+	if err != nil {
+		return nil, err
+	}
+	return cond, err
 }
