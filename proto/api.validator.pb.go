@@ -15,9 +15,6 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
-func (this *FeaturesRequest) Validate() error {
-	return nil
-}
 func (this *Feature) Validate() error {
 	for _, item := range this.FeatureVersion {
 		if item != nil {
@@ -31,12 +28,26 @@ func (this *Feature) Validate() error {
 func (this *FeatureVersion) Validate() error {
 	return nil
 }
+func (this *FeaturesRequest) Validate() error {
+	return nil
+}
 func (this *FeaturesReply) Validate() error {
 	for _, item := range this.Feature {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
 				return github_com_mwitkow_go_proto_validators.FieldError("Feature", err)
 			}
+		}
+	}
+	return nil
+}
+func (this *FeatureRequest) Validate() error {
+	return nil
+}
+func (this *FeatureReply) Validate() error {
+	if this.Feature != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Feature); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Feature", err)
 		}
 	}
 	return nil

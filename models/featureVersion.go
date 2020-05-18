@@ -11,6 +11,7 @@ type NFeatureVersion struct {
 	FeatureId              int32  `xorm:"'feature_id'" json:"feature_id"`
 	FeatureVersionName     string `xorm:"'feature_version_name'" json:"feature_version_name"`
 	FeatureVersionConfig   string `xorm:"'feature_version_config'" json:"feature_version_config"`
+	FeatureVersionIntro    string `xorm:"'feature_version_intro'" json:"feature_version_intro"`
 	FeatureVersionCreateAt int64  `xorm:"'feature_version_create_at'" json:"feature_version_create_at"`
 }
 
@@ -26,6 +27,20 @@ func (n *NFeatureVersion) GetFeatureVersion() ([]NFeatureVersion, error) {
 	}()
 	var cond []NFeatureVersion
 	err := dbRead.Find(&cond)
+	if err != nil {
+		return nil, err
+	}
+	return cond, err
+}
+
+func (n *NFeatureVersion) GetFeatureVersionByFeatureId(featureId int32) ([]NFeatureVersion, error) {
+	dbRead := utils.PgPoolRead.Get().(*xorm.Engine)
+	defer func() {
+		utils.PgPoolRead.Put(dbRead)
+		dbRead = nil
+	}()
+	var cond []NFeatureVersion
+	err := dbRead.Where("feature_id=?", featureId).Find(&cond)
 	if err != nil {
 		return nil, err
 	}

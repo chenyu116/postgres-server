@@ -19,11 +19,11 @@ service Api {
   rpc Projects (ProjectsRequest) returns (ProjectsReply);
   rpc ProjectInitialized (ProjectInitializedRequest) returns (ProjectInitializedReply);
   rpc Features (FeaturesRequest) returns (FeaturesReply);
+  rpc Feature (FeatureRequest) returns (FeatureReply);
   rpc ProjectFeaturesByProjectId (ProjectFeaturesByProjectIdRequest) returns (ProjectFeaturesByProjectIdReply);
 
 }
-message FeaturesRequest {
-}
+
 
 message Feature {
   int32 feature_id = 1;
@@ -36,10 +36,20 @@ message Feature {
 message FeatureVersion {
   int32 feature_version_id = 1;
   string feature_version_name = 2;
+  string feature_version_config = 3;
+  string feature_version_intro = 4;
 }
-
+message FeaturesRequest {
+}
 message FeaturesReply{
   repeated Feature feature = 1;
+}
+
+message FeatureRequest {
+  int32 feature_id = 1;
+}
+message FeatureReply{
+  Feature feature = 1;
 }
 
 message ProjectInitializedRequest {

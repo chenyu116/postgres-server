@@ -59,8 +59,9 @@ FeaturesReply,
 			featureVersionMap[v.FeatureId] = []*pb.FeatureVersion{}
 		}
 		featureVersionMap[v.FeatureId] = append(featureVersionMap[v.FeatureId], &pb.FeatureVersion{
-			FeatureVersionId:   v.FeatureVersionId,
-			FeatureVersionName: v.FeatureVersionName,
+			FeatureVersionId:     v.FeatureVersionId,
+			FeatureVersionName:   v.FeatureVersionName,
+			FeatureVersionConfig: v.FeatureVersionConfig,
 		})
 	}
 	for _, v := range features {
@@ -74,6 +75,45 @@ FeaturesReply,
 				FeatureVersion: getFeatureVersion,
 			})
 		}
+	}
+	return &reply, nil
+}
+
+func (s *apiServer) Feature(ctx context.Context, req *pb.FeatureRequest) (*pb.
+FeatureReply,
+	error) {
+	err := req.Validate()
+	if err != nil {
+		return nil, err
+	}
+	f := models.NewNFeature()
+	features, err := f.GetFeatureByFeatureId(req.FeatureId)
+	if err != nil {
+		return nil, err
+	}
+	fv := models.NewNFeatureVersion()
+	featureVersion, err := fv.GetFeatureVersionByFeatureId(req.FeatureId)
+	if err != nil {
+		return nil, err
+	}
+	var reply pb.FeatureReply
+	var featureVersionMap []*pb.FeatureVersion
+	for _, v := range featureVersion {
+		featureVersionMap = append(featureVersionMap, &pb.FeatureVersion{
+			FeatureVersionId:     v.FeatureVersionId,
+			FeatureVersionName:   v.FeatureVersionName,
+			FeatureVersionConfig: v.FeatureVersionConfig,
+			FeatureVersionIntro:  v.FeatureVersionIntro,
+		})
+	}
+	v := features[0]
+	reply.Feature = &pb.Feature{
+		FeatureId:      v.FeatureId,
+		FeatureName:    v.FeatureName,
+		FeatureLabels:  v.FeatureLabels,
+		FeatureTypes:   v.FeatureTypes,
+		FeatureIntro:   v.FeatureIntro,
+		FeatureVersion: featureVersionMap,
 	}
 	return &reply, nil
 }

@@ -31,3 +31,17 @@ func (n *NFeature) GetFeatures() ([]NFeature, error) {
 	}
 	return cond, err
 }
+
+func (n *NFeature) GetFeatureByFeatureId(featureId int32) ([]NFeature, error) {
+	dbRead := utils.PgPoolRead.Get().(*xorm.Engine)
+	defer func() {
+		utils.PgPoolRead.Put(dbRead)
+		dbRead = nil
+	}()
+	var cond []NFeature
+	err := dbRead.Where("feature_id=?", featureId).Limit(1).Find(&cond)
+	if err != nil {
+		return nil, err
+	}
+	return cond, err
+}
