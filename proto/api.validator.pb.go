@@ -7,6 +7,7 @@ import (
 	fmt "fmt"
 	math "math"
 	proto "github.com/golang/protobuf/proto"
+	_ "github.com/mwitkow/go-proto-validators"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
 
@@ -15,6 +16,21 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
+func (this *CreateProjectFeatureRequest) Validate() error {
+	if !(this.FeatureId > 0) {
+		return github_com_mwitkow_go_proto_validators.FieldError("FeatureId", fmt.Errorf(`value '%v' must be greater than '0'`, this.FeatureId))
+	}
+	if !(this.ProjectId > 0) {
+		return github_com_mwitkow_go_proto_validators.FieldError("ProjectId", fmt.Errorf(`value '%v' must be greater than '0'`, this.ProjectId))
+	}
+	if !(this.FeatureVersionId > 0) {
+		return github_com_mwitkow_go_proto_validators.FieldError("FeatureVersionId", fmt.Errorf(`value '%v' must be greater than '0'`, this.FeatureVersionId))
+	}
+	return nil
+}
+func (this *CreateProjectFeatureReply) Validate() error {
+	return nil
+}
 func (this *Feature) Validate() error {
 	for _, item := range this.FeatureVersion {
 		if item != nil {
@@ -42,6 +58,9 @@ func (this *FeaturesReply) Validate() error {
 	return nil
 }
 func (this *FeatureRequest) Validate() error {
+	if !(this.FeatureId > 0) {
+		return github_com_mwitkow_go_proto_validators.FieldError("FeatureId", fmt.Errorf(`value '%v' must be greater than '0'`, this.FeatureId))
+	}
 	return nil
 }
 func (this *FeatureReply) Validate() error {
@@ -98,6 +117,9 @@ func (this *ProjectFeatureAll) Validate() error {
 	return nil
 }
 func (this *ProjectFeaturesByProjectIdRequest) Validate() error {
+	if !(this.ProjectId > 0) {
+		return github_com_mwitkow_go_proto_validators.FieldError("ProjectId", fmt.Errorf(`value '%v' must be greater than '0'`, this.ProjectId))
+	}
 	return nil
 }
 func (this *ProjectFeaturesByProjectIdReply) Validate() error {

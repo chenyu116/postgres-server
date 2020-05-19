@@ -14,16 +14,25 @@
 
 syntax = "proto3";
 package postgresServer;
-
+import "github.com/mwitkow/go-proto-validators/validator.proto";
 service Api {
   rpc Projects (ProjectsRequest) returns (ProjectsReply);
   rpc ProjectInitialized (ProjectInitializedRequest) returns (ProjectInitializedReply);
   rpc Features (FeaturesRequest) returns (FeaturesReply);
   rpc Feature (FeatureRequest) returns (FeatureReply);
   rpc ProjectFeaturesByProjectId (ProjectFeaturesByProjectIdRequest) returns (ProjectFeaturesByProjectIdReply);
-
+  rpc CreateProjectFeature (CreateProjectFeatureRequest) returns (CreateProjectFeatureReply);
 }
 
+message CreateProjectFeatureRequest {
+  int32 feature_id = 1 [(validator.field) = {int_gt: 0}];
+  string project_feature_type = 2;
+  string project_feature_config = 3;
+  int32 project_id = 4 [(validator.field) = {int_gt: 0}];
+  int32 feature_version_id = 5 [(validator.field) = {int_gt: 0}];
+}
+
+message CreateProjectFeatureReply {}
 
 message Feature {
   int32 feature_id = 1;
@@ -32,6 +41,9 @@ message Feature {
   string feature_types = 4;
   string feature_intro = 5;
   repeated FeatureVersion feature_version = 6;
+  int32 project_features_id = 7;
+  string project_features_type = 8;
+  bool feature_onboot = 9;
 }
 message FeatureVersion {
   int32 feature_version_id = 1;
@@ -46,14 +58,14 @@ message FeaturesReply{
 }
 
 message FeatureRequest {
-  int32 feature_id = 1;
+  int32 feature_id = 1 [(validator.field) = {int_gt: 0}];
 }
 message FeatureReply{
   Feature feature = 1;
 }
 
 message ProjectInitializedRequest {
-  string projects = 1;
+  string projects = 1 [(validator.field) = {int_gt: 0}];
 }
 message ProjectInitializedReply {
   repeated ProjectDetails projects = 1;
@@ -101,7 +113,7 @@ message ProjectFeatureAll{
 
 }
 message ProjectFeaturesByProjectIdRequest{
-  int32 project_id = 1;
+  int32 project_id = 1 [(validator.field) = {int_gt: 0}];
 }
 message ProjectFeaturesByProjectIdReply{
   repeated ProjectFeatureAll features = 1;

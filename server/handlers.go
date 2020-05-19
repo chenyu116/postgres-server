@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"github.com/chenyu116/postgres-server/config"
 	"github.com/chenyu116/postgres-server/models"
 	pb "github.com/chenyu116/postgres-server/proto"
@@ -108,12 +109,15 @@ FeatureReply,
 	}
 	v := features[0]
 	reply.Feature = &pb.Feature{
-		FeatureId:      v.FeatureId,
-		FeatureName:    v.FeatureName,
-		FeatureLabels:  v.FeatureLabels,
-		FeatureTypes:   v.FeatureTypes,
-		FeatureIntro:   v.FeatureIntro,
-		FeatureVersion: featureVersionMap,
+		FeatureId:           v.NFeature.FeatureId,
+		FeatureName:         v.FeatureName,
+		FeatureLabels:       v.FeatureLabels,
+		FeatureTypes:        v.FeatureTypes,
+		FeatureIntro:        v.FeatureIntro,
+		FeatureVersion:      featureVersionMap,
+		ProjectFeaturesId:   v.ProjectFeaturesId,
+		ProjectFeaturesType: v.ProjectFeaturesType,
+		FeatureOnboot:       v.FeatureOnBoot,
 	}
 	return &reply, nil
 }
@@ -168,10 +172,32 @@ ProjectFeaturesByProjectIdReply,
 			FeatureName:           v.FeatureName,
 			FeatureLabels:         v.FeatureLabels,
 			FeatureTypes:          v.FeatureTypes,
-			FeatureVersionId:      v.FeatureVersionId,
+			FeatureVersionId:      v.NProjectFeatures.FeatureVersionId,
 			FeatureVersionName:    v.FeatureVersionName,
 			FeatureIntro:          v.FeatureIntro,
 		})
 	}
 	return &reply, nil
+}
+
+func (s *apiServer) CreateProjectFeature(ctx context.Context, req *pb.CreateProjectFeatureRequest) (*pb.CreateProjectFeatureReply, error) {
+	err := req.Validate()
+	if err != nil {
+		return nil, err
+	}
+	instance := models.NewNProjectFeatures()
+	cond := &models.NProjectFeatures{
+		ProjectFeaturesId:     req.FeatureVersionId,
+		ProjectFeaturesType:   req.ProjectFeatureType,
+		ProjectFeaturesConfig: req.ProjectFeatureConfig,
+		ProjectId:             req.ProjectId,
+		FeatureId:             req.FeatureId,
+		FeatureVersionId:      req.FeatureVersionId,
+	}
+	err = instance.Insert(cond)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Printf("%+v", cond)
+	return &pb.CreateProjectFeatureReply{}, nil
 }
