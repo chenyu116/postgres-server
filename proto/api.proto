@@ -43,7 +43,9 @@ message Feature {
   repeated FeatureVersion feature_version = 6;
   int32 project_features_id = 7;
   string project_features_type = 8;
-  bool feature_onboot = 9;
+  string project_features_config = 9;
+  int32 feature_version_id = 10;
+  bool feature_onboot = 11;
 }
 message FeatureVersion {
   int32 feature_version_id = 1;
@@ -110,6 +112,7 @@ message ProjectFeatureAll{
   string feature_intro = 8;
   int32 feature_version_id = 9;
   string feature_version_name = 10;
+  bool feature_onboot = 11;
 
 }
 message ProjectFeaturesByProjectIdRequest{

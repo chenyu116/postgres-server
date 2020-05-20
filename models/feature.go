@@ -45,7 +45,7 @@ func (n *NFeature) GetFeatureByFeatureId(featureId int32) ([]NFeatureRelation, e
 		dbRead = nil
 	}()
 	var cond []NFeatureRelation
-	err := dbRead.SQL("select * from n_feature as f LEFT JOIN n_project_features as pf ON f.feature_id = pf.feature_id where f.feature_id=? limit 1", featureId).Find(&cond)
+	err := dbRead.SQL("select * from n_feature where feature_id=? limit 1", featureId).Find(&cond)
 	if err != nil {
 		return nil, err
 	}

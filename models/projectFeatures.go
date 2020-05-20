@@ -44,7 +44,7 @@ func (n *NProjectFeatures) GetProjectFeaturesByProjectId(projectId int32) ([]NPr
 		dbRead = nil
 	}()
 	var cond []NProjectFeaturesRelation
-	err := dbRead.SQL("select * from n_project_features as pf LEFT JOIN n_feature as f ON pf.feature_id=f.feature_id LEFT JOIN n_feature_version as fv ON pf.feature_version_id=fv.feature_version_id WHERE pf.project_id=?", projectId).Find(&cond)
+	err := dbRead.SQL("select * from n_project_features as pf INNER JOIN n_feature as f ON pf.feature_id=f.feature_id LEFT JOIN n_feature_version as fv ON pf.feature_version_id=fv.feature_version_id WHERE pf.project_id=?", projectId).Find(&cond)
 	if err != nil {
 		return nil, err
 	}

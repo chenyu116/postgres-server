@@ -2,11 +2,11 @@ package server
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/chenyu116/postgres-server/config"
 	"github.com/chenyu116/postgres-server/models"
 	pb "github.com/chenyu116/postgres-server/proto"
-	//"time"
 )
 
 type apiServer struct {
@@ -74,6 +74,7 @@ FeaturesReply,
 				FeatureTypes:   v.FeatureTypes,
 				FeatureIntro:   v.FeatureIntro,
 				FeatureVersion: getFeatureVersion,
+				FeatureOnboot:  v.FeatureOnBoot,
 			})
 		}
 	}
@@ -92,6 +93,9 @@ FeatureReply,
 	if err != nil {
 		return nil, err
 	}
+	if len(features) == 0 {
+		return nil, errors.New("no result")
+	}
 	fv := models.NewNFeatureVersion()
 	featureVersion, err := fv.GetFeatureVersionByFeatureId(req.FeatureId)
 	if err != nil {
@@ -109,15 +113,17 @@ FeatureReply,
 	}
 	v := features[0]
 	reply.Feature = &pb.Feature{
-		FeatureId:           v.NFeature.FeatureId,
-		FeatureName:         v.FeatureName,
-		FeatureLabels:       v.FeatureLabels,
-		FeatureTypes:        v.FeatureTypes,
-		FeatureIntro:        v.FeatureIntro,
-		FeatureVersion:      featureVersionMap,
-		ProjectFeaturesId:   v.ProjectFeaturesId,
-		ProjectFeaturesType: v.ProjectFeaturesType,
-		FeatureOnboot:       v.FeatureOnBoot,
+		FeatureId:             v.NFeature.FeatureId,
+		FeatureName:           v.FeatureName,
+		FeatureLabels:         v.FeatureLabels,
+		FeatureTypes:          v.FeatureTypes,
+		FeatureIntro:          v.FeatureIntro,
+		FeatureVersion:        featureVersionMap,
+		ProjectFeaturesId:     v.ProjectFeaturesId,
+		ProjectFeaturesType:   v.ProjectFeaturesType,
+		FeatureVersionId:      v.FeatureVersionId,
+		FeatureOnboot:         v.NFeature.FeatureOnBoot,
+		ProjectFeaturesConfig: v.ProjectFeaturesConfig,
 	}
 	return &reply, nil
 }
@@ -175,6 +181,7 @@ ProjectFeaturesByProjectIdReply,
 			FeatureVersionId:      v.NProjectFeatures.FeatureVersionId,
 			FeatureVersionName:    v.FeatureVersionName,
 			FeatureIntro:          v.FeatureIntro,
+			FeatureOnboot:         v.FeatureOnBoot,
 		})
 	}
 	return &reply, nil
@@ -187,7 +194,6 @@ func (s *apiServer) CreateProjectFeature(ctx context.Context, req *pb.CreateProj
 	}
 	instance := models.NewNProjectFeatures()
 	cond := &models.NProjectFeatures{
-		ProjectFeaturesId:     req.FeatureVersionId,
 		ProjectFeaturesType:   req.ProjectFeatureType,
 		ProjectFeaturesConfig: req.ProjectFeatureConfig,
 		ProjectId:             req.ProjectId,
