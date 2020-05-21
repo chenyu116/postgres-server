@@ -7,12 +7,15 @@ import (
 )
 
 type NProjectFeatures struct {
-	ProjectFeaturesId     int32  `xorm:"'project_features_id' autoincr pk" json:"project_features_id"`
-	ProjectId             int32  `xorm:"'project_id'" json:"project_id"`
-	ProjectFeaturesType   string `xorm:"'project_features_type'" json:"project_features_type"`
-	ProjectFeaturesConfig string `xorm:"'project_features_config'" json:"project_features_config"`
-	FeatureId             int32  `xorm:"'feature_id'" json:"feature_id"`
-	FeatureVersionId      int32  `xorm:"'feature_version_id'" json:"feature_version_id"`
+	ProjectFeaturesId          int32  `xorm:"'project_features_id' autoincr pk" json:"project_features_id"`
+	ProjectId                  int32  `xorm:"'project_id'" json:"project_id"`
+	ProjectFeaturesType        string `xorm:"'project_features_type'" json:"project_features_type"`
+	ProjectFeaturesConfig      string `xorm:"'project_features_config'" json:"project_features_config"`
+	ProjectFeaturesInstallName string `xorm:"'project_features_install_name'" json:"project_features_install_name"`
+	ProjectFeaturesRoutePath   string `xorm:"'project_features_route_path'" json:"project_features_route_path"`
+	ProjectFeaturesDeployTo    int32  `xorm:"'project_features_deploy_to'" json:"project_features_deploy_to"`
+	FeatureId                  int32  `xorm:"'feature_id'" json:"feature_id"`
+	FeatureVersionId           int32  `xorm:"'feature_version_id'" json:"feature_version_id"`
 }
 
 type NProjectFeaturesRelation struct {
@@ -44,7 +47,7 @@ func (n *NProjectFeatures) GetProjectFeaturesByProjectId(projectId int32) ([]NPr
 		dbRead = nil
 	}()
 	var cond []NProjectFeaturesRelation
-	err := dbRead.SQL("select * from n_project_features as pf INNER JOIN n_feature as f ON pf.feature_id=f.feature_id LEFT JOIN n_feature_version as fv ON pf.feature_version_id=fv.feature_version_id WHERE pf.project_id=?", projectId).Find(&cond)
+	err := dbRead.SQL("select * from n_project_features as pf LEFT JOIN n_feature as f ON pf.feature_id=f.feature_id LEFT JOIN n_feature_version as fv ON pf.feature_version_id=fv.feature_version_id WHERE pf.project_id=? ORDER BY pf.project_features_sort_order ASC", projectId).Find(&cond)
 	if err != nil {
 		return nil, err
 	}

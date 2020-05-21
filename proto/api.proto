@@ -26,10 +26,13 @@ service Api {
 
 message CreateProjectFeatureRequest {
   int32 feature_id = 1 [(validator.field) = {int_gt: 0}];
-  string project_feature_type = 2;
-  string project_feature_config = 3;
+  string project_features_type = 2;
+  string project_features_config = 3;
   int32 project_id = 4 [(validator.field) = {int_gt: 0}];
   int32 feature_version_id = 5 [(validator.field) = {int_gt: 0}];
+  string project_features_install_name = 6 [(validator.field) = {string_not_empty: true}];
+  int32 project_features_sort_order = 7;
+  string project_features_route_path = 8;
 }
 
 message CreateProjectFeatureReply {}
@@ -113,6 +116,9 @@ message ProjectFeatureAll{
   int32 feature_version_id = 9;
   string feature_version_name = 10;
   bool feature_onboot = 11;
+  string project_features_install_name = 12;
+  string project_features_route_path = 13;
+  int32 project_features_deploy_to = 14;
 
 }
 message ProjectFeaturesByProjectIdRequest{

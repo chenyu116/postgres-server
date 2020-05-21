@@ -3,7 +3,6 @@ package server
 import (
 	"context"
 	"errors"
-	"fmt"
 	"github.com/chenyu116/postgres-server/config"
 	"github.com/chenyu116/postgres-server/models"
 	pb "github.com/chenyu116/postgres-server/proto"
@@ -171,17 +170,20 @@ ProjectFeaturesByProjectIdReply,
 	//featuresMap := make(map[int32]*pb.ProjectFeaturedDetails)
 	for _, v := range features {
 		reply.Features = append(reply.Features, &pb.ProjectFeatureAll{
-			ProjectFeaturesId:     v.ProjectFeaturesId,
-			ProjectFeaturesType:   v.ProjectFeaturesType,
-			ProjectFeaturesConfig: v.ProjectFeaturesConfig,
-			FeatureId:             v.NFeature.FeatureId,
-			FeatureName:           v.FeatureName,
-			FeatureLabels:         v.FeatureLabels,
-			FeatureTypes:          v.FeatureTypes,
-			FeatureVersionId:      v.NProjectFeatures.FeatureVersionId,
-			FeatureVersionName:    v.FeatureVersionName,
-			FeatureIntro:          v.FeatureIntro,
-			FeatureOnboot:         v.FeatureOnBoot,
+			ProjectFeaturesId:          v.ProjectFeaturesId,
+			ProjectFeaturesType:        v.ProjectFeaturesType,
+			ProjectFeaturesConfig:      v.ProjectFeaturesConfig,
+			FeatureId:                  v.NFeature.FeatureId,
+			FeatureName:                v.FeatureName,
+			FeatureLabels:              v.FeatureLabels,
+			FeatureTypes:               v.FeatureTypes,
+			FeatureVersionId:           v.NProjectFeatures.FeatureVersionId,
+			FeatureVersionName:         v.FeatureVersionName,
+			FeatureIntro:               v.FeatureIntro,
+			FeatureOnboot:              v.FeatureOnBoot,
+			ProjectFeaturesInstallName: v.ProjectFeaturesInstallName,
+			ProjectFeaturesRoutePath:   v.ProjectFeaturesRoutePath,
+			ProjectFeaturesDeployTo:    v.ProjectFeaturesDeployTo,
 		})
 	}
 	return &reply, nil
@@ -194,16 +196,17 @@ func (s *apiServer) CreateProjectFeature(ctx context.Context, req *pb.CreateProj
 	}
 	instance := models.NewNProjectFeatures()
 	cond := &models.NProjectFeatures{
-		ProjectFeaturesType:   req.ProjectFeatureType,
-		ProjectFeaturesConfig: req.ProjectFeatureConfig,
-		ProjectId:             req.ProjectId,
-		FeatureId:             req.FeatureId,
-		FeatureVersionId:      req.FeatureVersionId,
+		ProjectFeaturesType:        req.GetProjectFeaturesType(),
+		ProjectFeaturesConfig:      req.GetProjectFeaturesConfig(),
+		ProjectId:                  req.GetProjectId(),
+		FeatureId:                  req.GetFeatureId(),
+		FeatureVersionId:           req.GetFeatureVersionId(),
+		ProjectFeaturesInstallName: req.GetProjectFeaturesInstallName(),
+		ProjectFeaturesRoutePath:   req.GetProjectFeaturesRoutePath(),
 	}
 	err = instance.Insert(cond)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("%+v", cond)
 	return &pb.CreateProjectFeatureReply{}, nil
 }
