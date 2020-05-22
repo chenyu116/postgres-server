@@ -13,6 +13,7 @@ type NFeature struct {
 	FeatureTypes  string `xorm:"'feature_types'" json:"feature_types"`
 	FeatureIntro  string `xorm:"'feature_intro'" json:"feature_intro"`
 	FeatureOnBoot bool   `xorm:"'feature_onboot'" json:"feature_onboot"`
+	FeatureReUse bool   `xorm:"'feature_reuse'" json:"feature_reuse"`
 }
 
 type NFeatureRelation struct {

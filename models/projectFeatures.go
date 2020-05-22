@@ -9,6 +9,7 @@ import (
 type NProjectFeatures struct {
 	ProjectFeaturesId          int32  `xorm:"'project_features_id' autoincr pk" json:"project_features_id"`
 	ProjectId                  int32  `xorm:"'project_id'" json:"project_id"`
+	ProjectFeaturesName        string `xorm:"'project_features_name'" json:"project_features_name"`
 	ProjectFeaturesType        string `xorm:"'project_features_type'" json:"project_features_type"`
 	ProjectFeaturesConfig      string `xorm:"'project_features_config'" json:"project_features_config"`
 	ProjectFeaturesInstallName string `xorm:"'project_features_install_name'" json:"project_features_install_name"`

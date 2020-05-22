@@ -33,6 +33,7 @@ message CreateProjectFeatureRequest {
   string project_features_install_name = 6 [(validator.field) = {string_not_empty: true}];
   int32 project_features_sort_order = 7;
   string project_features_route_path = 8;
+  string project_features_name = 9 [(validator.field) = {string_not_empty: true}];
 }
 
 message CreateProjectFeatureReply {}
@@ -49,6 +50,7 @@ message Feature {
   string project_features_config = 9;
   int32 feature_version_id = 10;
   bool feature_onboot = 11;
+  bool feature_reuse = 12;
 }
 message FeatureVersion {
   int32 feature_version_id = 1;
@@ -119,6 +121,8 @@ message ProjectFeatureAll{
   string project_features_install_name = 12;
   string project_features_route_path = 13;
   int32 project_features_deploy_to = 14;
+  bool feature_reuse = 15;
+  string project_features_name = 16;
 
 }
 message ProjectFeaturesByProjectIdRequest{

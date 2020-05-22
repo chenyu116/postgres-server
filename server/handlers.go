@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"errors"
+	"fmt"
 	"github.com/chenyu116/postgres-server/config"
 	"github.com/chenyu116/postgres-server/models"
 	pb "github.com/chenyu116/postgres-server/proto"
@@ -123,6 +124,7 @@ FeatureReply,
 		FeatureVersionId:      v.FeatureVersionId,
 		FeatureOnboot:         v.NFeature.FeatureOnBoot,
 		ProjectFeaturesConfig: v.ProjectFeaturesConfig,
+		FeatureReuse:          v.FeatureReUse,
 	}
 	return &reply, nil
 }
@@ -184,6 +186,8 @@ ProjectFeaturesByProjectIdReply,
 			ProjectFeaturesInstallName: v.ProjectFeaturesInstallName,
 			ProjectFeaturesRoutePath:   v.ProjectFeaturesRoutePath,
 			ProjectFeaturesDeployTo:    v.ProjectFeaturesDeployTo,
+			FeatureReuse:               v.FeatureReUse,
+			ProjectFeaturesName:        v.ProjectFeaturesName,
 		})
 	}
 	return &reply, nil
@@ -203,7 +207,9 @@ func (s *apiServer) CreateProjectFeature(ctx context.Context, req *pb.CreateProj
 		FeatureVersionId:           req.GetFeatureVersionId(),
 		ProjectFeaturesInstallName: req.GetProjectFeaturesInstallName(),
 		ProjectFeaturesRoutePath:   req.GetProjectFeaturesRoutePath(),
+		ProjectFeaturesName:        req.GetProjectFeaturesName(),
 	}
+	fmt.Printf("%+v", cond)
 	err = instance.Insert(cond)
 	if err != nil {
 		return nil, err

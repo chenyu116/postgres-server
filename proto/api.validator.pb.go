@@ -29,6 +29,9 @@ func (this *CreateProjectFeatureRequest) Validate() error {
 	if this.ProjectFeaturesInstallName == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("ProjectFeaturesInstallName", fmt.Errorf(`value '%v' must not be an empty string`, this.ProjectFeaturesInstallName))
 	}
+	if this.ProjectFeaturesName == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("ProjectFeaturesName", fmt.Errorf(`value '%v' must not be an empty string`, this.ProjectFeaturesName))
+	}
 	return nil
 }
 func (this *CreateProjectFeatureReply) Validate() error {
