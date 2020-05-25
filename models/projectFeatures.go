@@ -15,6 +15,7 @@ type NProjectFeatures struct {
 	ProjectFeaturesInstallName string `xorm:"'project_features_install_name'" json:"project_features_install_name"`
 	ProjectFeaturesRoutePath   string `xorm:"'project_features_route_path'" json:"project_features_route_path"`
 	ProjectFeaturesDeployTo    int32  `xorm:"'project_features_deploy_to'" json:"project_features_deploy_to"`
+	ProjectFeaturesSortOrder   int32  `xorm:"'project_features_sort_order'" json:"project_features_sort_order"`
 	FeatureId                  int32  `xorm:"'feature_id'" json:"feature_id"`
 	FeatureVersionId           int32  `xorm:"'feature_version_id'" json:"feature_version_id"`
 }

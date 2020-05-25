@@ -186,6 +186,7 @@ ProjectFeaturesByProjectIdReply,
 			ProjectFeaturesInstallName: v.ProjectFeaturesInstallName,
 			ProjectFeaturesRoutePath:   v.ProjectFeaturesRoutePath,
 			ProjectFeaturesDeployTo:    v.ProjectFeaturesDeployTo,
+			ProjectFeaturesSortOrder:   v.ProjectFeaturesSortOrder,
 			FeatureReuse:               v.FeatureReUse,
 			ProjectFeaturesName:        v.ProjectFeaturesName,
 		})
@@ -206,7 +207,6 @@ func (s *apiServer) CreateProjectFeature(ctx context.Context, req *pb.CreateProj
 		FeatureId:                  req.GetFeatureId(),
 		FeatureVersionId:           req.GetFeatureVersionId(),
 		ProjectFeaturesInstallName: req.GetProjectFeaturesInstallName(),
-		ProjectFeaturesRoutePath:   req.GetProjectFeaturesRoutePath(),
 		ProjectFeaturesName:        req.GetProjectFeaturesName(),
 	}
 	fmt.Printf("%+v", cond)
