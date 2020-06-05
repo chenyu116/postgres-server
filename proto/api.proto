@@ -22,6 +22,7 @@ service Api {
   rpc Feature (FeatureRequest) returns (FeatureReply);
   rpc ProjectFeaturesByProjectId (ProjectFeaturesByProjectIdRequest) returns (ProjectFeaturesByProjectIdReply);
   rpc CreateProjectFeature (CreateProjectFeatureRequest) returns (CreateProjectFeatureReply);
+  rpc UpdateProjectFeature (UpdateProjectFeatureRequest) returns (UpdateProjectFeatureReply);
 }
 
 message CreateProjectFeatureRequest {
@@ -36,6 +37,16 @@ message CreateProjectFeatureRequest {
 }
 
 message CreateProjectFeatureReply {}
+
+message UpdateProjectFeatureRequest {
+  int32 project_features_id = 1 [(validator.field) = {int_gt: 0}];
+  string project_features_type = 2;
+  string project_features_config = 3;
+  int32 feature_version_id = 4 [(validator.field) = {int_gt: 0}];
+  int32 project_features_sort_order = 5;
+  string project_features_name = 6 [(validator.field) = {string_not_empty: true}];
+}
+message UpdateProjectFeatureReply {}
 
 message Feature {
   int32 feature_id = 1;

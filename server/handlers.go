@@ -216,3 +216,23 @@ func (s *apiServer) CreateProjectFeature(ctx context.Context, req *pb.CreateProj
 	}
 	return &pb.CreateProjectFeatureReply{}, nil
 }
+func (s *apiServer) UpdateProjectFeature(ctx context.Context, req *pb.UpdateProjectFeatureRequest) (*pb.UpdateProjectFeatureReply, error) {
+	err := req.Validate()
+	if err != nil {
+		return nil, err
+	}
+	instance := models.NewNProjectFeatures()
+	cond := &models.NProjectFeatures{
+		ProjectFeaturesType:        req.GetProjectFeaturesType(),
+		ProjectFeaturesConfig:      req.GetProjectFeaturesConfig(),
+		ProjectFeaturesId:          req.GetProjectFeaturesId(),
+		FeatureVersionId:           req.GetFeatureVersionId(),
+		ProjectFeaturesName:        req.GetProjectFeaturesName(),
+	}
+	fmt.Printf("%+v", cond)
+	err = instance.Update(cond)
+	if err != nil {
+		return nil, err
+	}
+	return &pb.UpdateProjectFeatureReply{}, nil
+}

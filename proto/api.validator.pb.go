@@ -37,6 +37,21 @@ func (this *CreateProjectFeatureRequest) Validate() error {
 func (this *CreateProjectFeatureReply) Validate() error {
 	return nil
 }
+func (this *UpdateProjectFeatureRequest) Validate() error {
+	if !(this.ProjectFeaturesId > 0) {
+		return github_com_mwitkow_go_proto_validators.FieldError("ProjectFeaturesId", fmt.Errorf(`value '%v' must be greater than '0'`, this.ProjectFeaturesId))
+	}
+	if !(this.FeatureVersionId > 0) {
+		return github_com_mwitkow_go_proto_validators.FieldError("FeatureVersionId", fmt.Errorf(`value '%v' must be greater than '0'`, this.FeatureVersionId))
+	}
+	if this.ProjectFeaturesName == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("ProjectFeaturesName", fmt.Errorf(`value '%v' must not be an empty string`, this.ProjectFeaturesName))
+	}
+	return nil
+}
+func (this *UpdateProjectFeatureReply) Validate() error {
+	return nil
+}
 func (this *Feature) Validate() error {
 	for _, item := range this.FeatureVersion {
 		if item != nil {

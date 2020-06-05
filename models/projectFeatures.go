@@ -42,6 +42,20 @@ func (n *NProjectFeatures) Insert(cond *NProjectFeatures) error {
 	}
 	return nil
 }
+
+func (n *NProjectFeatures) Update(cond *NProjectFeatures) error {
+	dbWrite := utils.PgPoolWrite.Get().(*xorm.Engine)
+	defer func() {
+		utils.PgPoolWrite.Put(dbWrite)
+		dbWrite = nil
+	}()
+	_, err := dbWrite.Id(cond.ProjectFeaturesId).Update(cond)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func (n *NProjectFeatures) GetProjectFeaturesByProjectId(projectId int32) ([]NProjectFeaturesRelation, error) {
 	dbRead := utils.PgPoolRead.Get().(*xorm.Engine)
 	defer func() {
